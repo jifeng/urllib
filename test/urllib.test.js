@@ -649,7 +649,7 @@ describe('urllib.test.js', function () {
         err.name.should.equal('RequestError');
         err.stack.should.match(/socket hang up/);
         err.code.should.equal('ECONNRESET');
-        err.message.should.containEql('/error -1\nheaders: {}');
+        err.message.should.containEql('/error 500\nheaders: {}');
         err.res.should.equal(res);
         should.not.exist(data);
         should.exist(res);
@@ -938,7 +938,7 @@ describe('urllib.test.js', function () {
       urllib.on('response', function (info) {
         if (info.req.options.path === '/error') {
           should.exist(info.error);
-          info.res.status.should.equal(-1);
+          info.res.status.should.equal(500);
           info.req.size.should.equal(0);
           info.ctx.should.eql({
             foo: 'error request'
